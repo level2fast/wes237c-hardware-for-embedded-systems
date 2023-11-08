@@ -1,0 +1,244 @@
+
+
+================================================================
+== Vitis HLS Report for 'firQ1'
+================================================================
+* Date:           Mon Nov  6 21:11:43 2023
+
+* Version:        2023.1 (Build 3854077 on May  4 2023)
+* Project:        baseline
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: zynq
+* Target device:  xc7z020-clg400-1
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+----------+----------+------------+
+    |  Clock |  Target  | Estimated| Uncertainty|
+    +--------+----------+----------+------------+
+    |ap_clk  |  10.00 ns|  8.352 ns|     2.70 ns|
+    +--------+----------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |      168|      168|  1.680 us|  1.680 us|  168|  168|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        +-------------------------------+--------------------+---------+---------+-----------+-----------+-----+-----+---------+
+        |                               |                    |  Latency (cycles) |   Latency (absolute)  |  Interval | Pipeline|
+        |            Instance           |       Module       |   min   |   max   |    min    |    max    | min | max |   Type  |
+        +-------------------------------+--------------------+---------+---------+-----------+-----------+-----+-----+---------+
+        |grp_firQ1_Pipeline_TDL_fu_237  |firQ1_Pipeline_TDL  |        5|        5|  50.000 ns|  50.000 ns|    5|    5|       no|
+        +-------------------------------+--------------------+---------+---------+-----------+-----------+-----+-----+---------+
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-----+--------+-------+-----+
+|       Name      | BRAM_18K| DSP |   FF   |  LUT  | URAM|
++-----------------+---------+-----+--------+-------+-----+
+|DSP              |        -|    -|       -|      -|    -|
+|Expression       |        -|    -|       0|    528|    -|
+|FIFO             |        -|    -|       -|      -|    -|
+|Instance         |        -|    2|    1659|   2368|    -|
+|Memory           |        0|    -|    1024|     16|    0|
+|Multiplexer      |        -|    -|       -|   1639|    -|
+|Register         |        -|    -|    1189|      -|    -|
++-----------------+---------+-----+--------+-------+-----+
+|Total            |        0|    2|    3872|   4551|    0|
++-----------------+---------+-----+--------+-------+-----+
+|Available        |      280|  220|  106400|  53200|    0|
++-----------------+---------+-----+--------+-------+-----+
+|Utilization (%)  |        0|   ~0|       3|      8|    0|
++-----------------+---------+-----+--------+-------+-----+
+
++ Detail: 
+    * Instance: 
+    +------------------------------------+--------------------------------+---------+----+------+------+-----+
+    |              Instance              |             Module             | BRAM_18K| DSP|  FF  |  LUT | URAM|
+    +------------------------------------+--------------------------------+---------+----+------+------+-----+
+    |fadd_32ns_32ns_32_5_full_dsp_1_U36  |fadd_32ns_32ns_32_5_full_dsp_1  |        0|   2|   205|   390|    0|
+    |grp_firQ1_Pipeline_TDL_fu_237       |firQ1_Pipeline_TDL              |        0|   0|  1454|  1978|    0|
+    +------------------------------------+--------------------------------+---------+----+------+------+-----+
+    |Total                               |                                |        0|   2|  1659|  2368|    0|
+    +------------------------------------+--------------------------------+---------+----+------+------+-----+
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    +----------------------------------+----------------------------------------------------+---------+----+----+-----+------+-----+------+-------------+
+    |              Memory              |                       Module                       | BRAM_18K| FF | LUT| URAM| Words| Bits| Banks| W*Bits*Banks|
+    +----------------------------------+----------------------------------------------------+---------+----+----+-----+------+-----+------+-------------+
+    |p_ZZ5firQ1PffE9shift_reg_14_U     |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |p_ZZ5firQ1PffE9shift_reg_13_U     |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |p_ZZ5firQ1PffE9shift_reg_12_U     |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |p_ZZ5firQ1PffE9shift_reg_11_U     |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |p_ZZ5firQ1PffE9shift_reg_10_U     |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |firQ1_float_float_shift_reg_27_U  |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |firQ1_float_float_shift_reg_26_U  |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |firQ1_float_float_shift_reg_25_U  |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |firQ1_float_float_shift_reg_24_U  |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |firQ1_float_float_shift_reg_23_U  |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |firQ1_float_float_shift_reg_22_U  |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |firQ1_float_float_shift_reg_21_U  |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |firQ1_float_float_shift_reg_20_U  |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |firQ1_float_float_shift_reg_19_U  |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |firQ1_float_float_shift_reg_U     |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    |p_ZZ5firQ1PffE9shift_reg_15_U     |firI1_p_ZZ5firI1PffE9shift_reg_14_RAM_2P_AUTO_1R1W  |        0|  64|   1|    0|     2|   32|     1|           64|
+    +----------------------------------+----------------------------------------------------+---------+----+----+-----+------+-----+------+-------------+
+    |Total                             |                                                    |        0|1024|  16|    0|    32|  512|    16|         1024|
+    +----------------------------------+----------------------------------------------------+---------+----+----+-----+------+-----+------+-------------+
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +------------------------+----------+----+---+----+------------+------------+
+    |      Variable Name     | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +------------------------+----------+----+---+----+------------+------------+
+    |xor_ln128_10_fu_438_p2  |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_11_fu_452_p2  |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_12_fu_466_p2  |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_13_fu_480_p2  |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_14_fu_494_p2  |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_15_fu_508_p2  |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_1_fu_312_p2   |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_2_fu_326_p2   |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_3_fu_340_p2   |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_4_fu_354_p2   |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_5_fu_368_p2   |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_6_fu_382_p2   |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_7_fu_396_p2   |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_8_fu_410_p2   |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_9_fu_424_p2   |       xor|   0|  0|  33|          32|          33|
+    |xor_ln128_fu_298_p2     |       xor|   0|  0|  33|          32|          33|
+    +------------------------+----------+----+---+----+------------+------------+
+    |Total                   |          |   0|  0| 528|         512|         528|
+    +------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-----------------------------------------+-----+-----------+-----+-----------+
+    |                   Name                  | LUT | Input Size| Bits| Total Bits|
+    +-----------------------------------------+-----+-----------+-----+-----------+
+    |ap_NS_fsm                                |  880|        165|    1|        165|
+    |ap_return                                |    9|          2|   32|         64|
+    |firQ1_float_float_shift_reg_19_address0  |   20|          4|    1|          4|
+    |firQ1_float_float_shift_reg_19_ce0       |   14|          3|    1|          3|
+    |firQ1_float_float_shift_reg_20_address0  |   20|          4|    1|          4|
+    |firQ1_float_float_shift_reg_20_ce0       |   14|          3|    1|          3|
+    |firQ1_float_float_shift_reg_21_address0  |   20|          4|    1|          4|
+    |firQ1_float_float_shift_reg_21_ce0       |   14|          3|    1|          3|
+    |firQ1_float_float_shift_reg_22_address0  |   20|          4|    1|          4|
+    |firQ1_float_float_shift_reg_22_ce0       |   14|          3|    1|          3|
+    |firQ1_float_float_shift_reg_23_address0  |   20|          4|    1|          4|
+    |firQ1_float_float_shift_reg_23_ce0       |   14|          3|    1|          3|
+    |firQ1_float_float_shift_reg_24_address0  |   20|          4|    1|          4|
+    |firQ1_float_float_shift_reg_24_ce0       |   14|          3|    1|          3|
+    |firQ1_float_float_shift_reg_25_address0  |   20|          4|    1|          4|
+    |firQ1_float_float_shift_reg_25_ce0       |   14|          3|    1|          3|
+    |firQ1_float_float_shift_reg_26_address0  |   20|          4|    1|          4|
+    |firQ1_float_float_shift_reg_26_ce0       |   14|          3|    1|          3|
+    |firQ1_float_float_shift_reg_27_address0  |   20|          4|    1|          4|
+    |firQ1_float_float_shift_reg_27_ce0       |   14|          3|    1|          3|
+    |firQ1_float_float_shift_reg_address0     |   14|          3|    1|          3|
+    |firQ1_float_float_shift_reg_address1     |   14|          3|    1|          3|
+    |firQ1_float_float_shift_reg_ce0          |   14|          3|    1|          3|
+    |firQ1_float_float_shift_reg_ce1          |   14|          3|    1|          3|
+    |firQ1_float_float_shift_reg_d1           |   14|          3|   32|         96|
+    |firQ1_float_float_shift_reg_we1          |   14|          3|    1|          3|
+    |grp_fu_273_p0                            |   14|          3|   32|         96|
+    |grp_fu_273_p1                            |  142|         32|   32|       1024|
+    |p_ZZ5firQ1PffE9shift_reg_10_address0     |   20|          4|    1|          4|
+    |p_ZZ5firQ1PffE9shift_reg_10_ce0          |   14|          3|    1|          3|
+    |p_ZZ5firQ1PffE9shift_reg_11_address0     |   20|          4|    1|          4|
+    |p_ZZ5firQ1PffE9shift_reg_11_ce0          |   14|          3|    1|          3|
+    |p_ZZ5firQ1PffE9shift_reg_12_address0     |   20|          4|    1|          4|
+    |p_ZZ5firQ1PffE9shift_reg_12_ce0          |   14|          3|    1|          3|
+    |p_ZZ5firQ1PffE9shift_reg_13_address0     |   20|          4|    1|          4|
+    |p_ZZ5firQ1PffE9shift_reg_13_ce0          |   14|          3|    1|          3|
+    |p_ZZ5firQ1PffE9shift_reg_14_address0     |   20|          4|    1|          4|
+    |p_ZZ5firQ1PffE9shift_reg_14_ce0          |   14|          3|    1|          3|
+    |p_ZZ5firQ1PffE9shift_reg_15_address0     |   20|          4|    1|          4|
+    |p_ZZ5firQ1PffE9shift_reg_15_ce0          |   14|          3|    1|          3|
+    +-----------------------------------------+-----+-----------+-----+-----------+
+    |Total                                    | 1639|        325|  164|       1565|
+    +-----------------------------------------+-----+-----------+-----+-----------+
+
+    * Register: 
+    +----------------------------------------------------------------------------------+-----+----+-----+-----------+
+    |                                       Name                                       |  FF | LUT| Bits| Const Bits|
+    +----------------------------------------------------------------------------------+-----+----+-----+-----------+
+    |ap_CS_fsm                                                                         |  164|   0|  164|          0|
+    |ap_return_preg                                                                    |   32|   0|   32|          0|
+    |firQ1_float_float_shift_reg_20_reg_518                                            |   32|   0|   32|          0|
+    |firQ1_float_float_shift_reg_22_load_1_reg_703                                     |   32|   0|   32|          0|
+    |firQ1_float_float_shift_reg_22_reg_533                                            |   32|   0|   32|          0|
+    |firQ1_float_float_shift_reg_23_load_reg_578                                       |   32|   0|   32|          0|
+    |firQ1_float_float_shift_reg_24_load_1_reg_688                                     |   32|   0|   32|          0|
+    |firQ1_float_float_shift_reg_25_load_reg_563                                       |   32|   0|   32|          0|
+    |firQ1_float_float_shift_reg_26_load_reg_558                                       |   32|   0|   32|          0|
+    |firQ1_float_float_shift_reg_27_load_reg_553                                       |   32|   0|   32|          0|
+    |firQ1_float_float_shift_reg_load_reg_613                                          |   32|   0|   32|          0|
+    |firQ1_mulfloat_float_shift_reg_lo_signed_char_double_1_reg_628                    |   32|   0|   32|          0|
+    |firQ1_mulfloat_float_shift_reg_long_unsigned_int128_signed_char_double_1_reg_643  |   32|   0|   32|          0|
+    |grp_firQ1_Pipeline_TDL_fu_237_ap_start_reg                                        |    1|   0|    1|          0|
+    |p_ZZ5firQ1PffE9shift_reg_10_load_reg_548                                          |   32|   0|   32|          0|
+    |reg_278                                                                           |   32|   0|   32|          0|
+    |reg_284                                                                           |   32|   0|   32|          0|
+    |reg_289                                                                           |   32|   0|   32|          0|
+    |xor_ln128_10_reg_668                                                              |   32|   0|   32|          0|
+    |xor_ln128_11_reg_678                                                              |   32|   0|   32|          0|
+    |xor_ln128_12_reg_693                                                              |   32|   0|   32|          0|
+    |xor_ln128_13_reg_708                                                              |   32|   0|   32|          0|
+    |xor_ln128_14_reg_718                                                              |   32|   0|   32|          0|
+    |xor_ln128_15_reg_728                                                              |   32|   0|   32|          0|
+    |xor_ln128_1_reg_538                                                               |   32|   0|   32|          0|
+    |xor_ln128_2_reg_568                                                               |   32|   0|   32|          0|
+    |xor_ln128_3_reg_583                                                               |   32|   0|   32|          0|
+    |xor_ln128_4_reg_593                                                               |   32|   0|   32|          0|
+    |xor_ln128_5_reg_603                                                               |   32|   0|   32|          0|
+    |xor_ln128_6_reg_618                                                               |   32|   0|   32|          0|
+    |xor_ln128_7_reg_633                                                               |   32|   0|   32|          0|
+    |xor_ln128_8_reg_648                                                               |   32|   0|   32|          0|
+    |xor_ln128_9_reg_658                                                               |   32|   0|   32|          0|
+    |xor_ln128_reg_523                                                                 |   32|   0|   32|          0|
+    +----------------------------------------------------------------------------------+-----+----+-----+-----------+
+    |Total                                                                             | 1189|   0| 1189|          0|
+    +----------------------------------------------------------------------------------+-----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-----------+-----+-----+------------+--------------+--------------+
+| RTL Ports | Dir | Bits|  Protocol  | Source Object|    C Type    |
++-----------+-----+-----+------------+--------------+--------------+
+|ap_clk     |   in|    1|  ap_ctrl_hs|         firQ1|  return value|
+|ap_rst     |   in|    1|  ap_ctrl_hs|         firQ1|  return value|
+|ap_start   |   in|    1|  ap_ctrl_hs|         firQ1|  return value|
+|ap_done    |  out|    1|  ap_ctrl_hs|         firQ1|  return value|
+|ap_idle    |  out|    1|  ap_ctrl_hs|         firQ1|  return value|
+|ap_ready   |  out|    1|  ap_ctrl_hs|         firQ1|  return value|
+|ap_return  |  out|   32|  ap_ctrl_hs|         firQ1|  return value|
+|x          |   in|   32|     ap_none|             x|        scalar|
++-----------+-----+-----+------------+--------------+--------------+
+
