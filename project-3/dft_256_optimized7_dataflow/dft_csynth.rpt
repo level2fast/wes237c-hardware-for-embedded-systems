@@ -1,0 +1,190 @@
+
+
+================================================================
+== Vitis HLS Report for 'dft'
+================================================================
+* Date:           Fri Nov 17 20:31:58 2023
+
+* Version:        2023.1 (Build 3854077 on May  4 2023)
+* Project:        hls
+* Solution:       solution1 (Vivado IP Flow Target)
+* Product family: zynq
+* Target device:  xc7z020-clg400-1
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+----------+----------+------------+
+    |  Clock |  Target  | Estimated| Uncertainty|
+    +--------+----------+----------+------------+
+    |ap_clk  |  10.00 ns|  7.256 ns|     2.70 ns|
+    +--------+----------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+-----------+---------+---------+----------+
+    |  Latency (cycles) |   Latency (absolute)  |      Interval     | Pipeline |
+    |   min   |   max   |    min    |    max    |   min   |   max   |   Type   |
+    +---------+---------+-----------+-----------+---------+---------+----------+
+    |  1049348|  1049348|  10.493 ms|  10.493 ms|  1049090|  1049090|  dataflow|
+    +---------+---------+-----------+-----------+---------+---------+----------+
+
+    + Detail: 
+        * Instance: 
+        +------------------------------+---------------------------+---------+---------+-----------+-----------+---------+---------+---------+
+        |                              |                           |  Latency (cycles) |   Latency (absolute)  |      Interval     | Pipeline|
+        |           Instance           |           Module          |   min   |   max   |    min    |    max    |   min   |   max   |   Type  |
+        +------------------------------+---------------------------+---------+---------+-----------+-----------+---------+---------+---------+
+        |Loop_VITIS_LOOP_21_1_proc_U0  |Loop_VITIS_LOOP_21_1_proc  |  1049089|  1049089|  10.491 ms|  10.491 ms|  1049089|  1049089|       no|
+        |Loop_VITIS_LOOP_64_3_proc_U0  |Loop_VITIS_LOOP_64_3_proc  |      258|      258|   2.580 us|   2.580 us|      258|      258|       no|
+        +------------------------------+---------------------------+---------+---------+-----------+-----------+---------+---------+---------+
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+-----+--------+-------+-----+
+|       Name      | BRAM_18K| DSP |   FF   |  LUT  | URAM|
++-----------------+---------+-----+--------+-------+-----+
+|DSP              |        -|    -|       -|      -|    -|
+|Expression       |        -|    -|       0|     14|    -|
+|FIFO             |        -|    -|       -|      -|    -|
+|Instance         |        2|   16|    1482|   2421|    -|
+|Memory           |        2|    -|       0|      0|    0|
+|Multiplexer      |        -|    -|       -|     18|    -|
+|Register         |        -|    -|       2|      -|    -|
++-----------------+---------+-----+--------+-------+-----+
+|Total            |        4|   16|    1484|   2453|    0|
++-----------------+---------+-----+--------+-------+-----+
+|Available        |      280|  220|  106400|  53200|    0|
++-----------------+---------+-----+--------+-------+-----+
+|Utilization (%)  |        1|    7|       1|      4|    0|
++-----------------+---------+-----+--------+-------+-----+
+
++ Detail: 
+    * Instance: 
+    +------------------------------+---------------------------+---------+----+------+------+-----+
+    |           Instance           |           Module          | BRAM_18K| DSP|  FF  |  LUT | URAM|
+    +------------------------------+---------------------------+---------+----+------+------+-----+
+    |Loop_VITIS_LOOP_21_1_proc_U0  |Loop_VITIS_LOOP_21_1_proc  |        2|  16|  1461|  2352|    0|
+    |Loop_VITIS_LOOP_64_3_proc_U0  |Loop_VITIS_LOOP_64_3_proc  |        0|   0|    21|    69|    0|
+    +------------------------------+---------------------------+---------+----+------+------+-----+
+    |Total                         |                           |        2|  16|  1482|  2421|    0|
+    +------------------------------+---------------------------+---------+----+------+------+-----+
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    +-------------+-------------------------+---------+---+----+-----+------+-----+------+-------------+
+    |    Memory   |          Module         | BRAM_18K| FF| LUT| URAM| Words| Bits| Banks| W*Bits*Banks|
+    +-------------+-------------------------+---------+---+----+-----+------+-----+------+-------------+
+    |temp_real_U  |temp_real_RAM_AUTO_1R1W  |        1|  0|   0|    0|   256|   32|     1|         8192|
+    |temp_imag_U  |temp_real_RAM_AUTO_1R1W  |        1|  0|   0|    0|   256|   32|     1|         8192|
+    +-------------+-------------------------+---------+---+----+-----+------+-----+------+-------------+
+    |Total        |                         |        2|  0|   0|    0|   512|   64|     2|        16384|
+    +-------------+-------------------------+---------+---+----+-----+------+-----+------+-------------+
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +------------------------------------------+----------+----+---+----+------------+------------+
+    |               Variable Name              | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +------------------------------------------+----------+----+---+----+------------+------------+
+    |Loop_VITIS_LOOP_21_1_proc_U0_ap_continue  |       and|   0|  0|   2|           1|           1|
+    |Loop_VITIS_LOOP_64_3_proc_U0_ap_start     |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_temp_imag                 |       and|   0|  0|   2|           1|           1|
+    |ap_channel_done_temp_real                 |       and|   0|  0|   2|           1|           1|
+    |ap_idle                                   |       and|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_temp_imag           |        or|   0|  0|   2|           1|           1|
+    |ap_sync_channel_write_temp_real           |        or|   0|  0|   2|           1|           1|
+    +------------------------------------------+----------+----+---+----+------------+------------+
+    |Total                                     |          |   0|  0|  14|           7|           7|
+    +------------------------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-------------------------------------+----+-----------+-----+-----------+
+    |                 Name                | LUT| Input Size| Bits| Total Bits|
+    +-------------------------------------+----+-----------+-----+-----------+
+    |ap_sync_reg_channel_write_temp_imag  |   9|          2|    1|          2|
+    |ap_sync_reg_channel_write_temp_real  |   9|          2|    1|          2|
+    +-------------------------------------+----+-----------+-----+-----------+
+    |Total                                |  18|          4|    2|          4|
+    +-------------------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-------------------------------------+---+----+-----+-----------+
+    |                 Name                | FF| LUT| Bits| Const Bits|
+    +-------------------------------------+---+----+-----+-----------+
+    |ap_sync_reg_channel_write_temp_imag  |  1|   0|    1|          0|
+    |ap_sync_reg_channel_write_temp_real  |  1|   0|    1|          0|
+    +-------------------------------------+---+----+-----+-----------+
+    |Total                                |  2|   0|    2|          0|
+    +-------------------------------------+---+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++--------------------------+-----+-----+------------+-----------------+--------------+
+|         RTL Ports        | Dir | Bits|  Protocol  |  Source Object  |    C Type    |
++--------------------------+-----+-----+------------+-----------------+--------------+
+|ap_clk                    |   in|    1|  ap_ctrl_hs|              dft|  return value|
+|ap_rst                    |   in|    1|  ap_ctrl_hs|              dft|  return value|
+|ap_start                  |   in|    1|  ap_ctrl_hs|              dft|  return value|
+|ap_done                   |  out|    1|  ap_ctrl_hs|              dft|  return value|
+|ap_ready                  |  out|    1|  ap_ctrl_hs|              dft|  return value|
+|ap_idle                   |  out|    1|  ap_ctrl_hs|              dft|  return value|
+|real_sample_in_address0   |  out|    8|   ap_memory|   real_sample_in|         array|
+|real_sample_in_ce0        |  out|    1|   ap_memory|   real_sample_in|         array|
+|real_sample_in_d0         |  out|   32|   ap_memory|   real_sample_in|         array|
+|real_sample_in_q0         |   in|   32|   ap_memory|   real_sample_in|         array|
+|real_sample_in_we0        |  out|    1|   ap_memory|   real_sample_in|         array|
+|real_sample_in_address1   |  out|    8|   ap_memory|   real_sample_in|         array|
+|real_sample_in_ce1        |  out|    1|   ap_memory|   real_sample_in|         array|
+|real_sample_in_d1         |  out|   32|   ap_memory|   real_sample_in|         array|
+|real_sample_in_q1         |   in|   32|   ap_memory|   real_sample_in|         array|
+|real_sample_in_we1        |  out|    1|   ap_memory|   real_sample_in|         array|
+|imag_sample_in_address0   |  out|    8|   ap_memory|   imag_sample_in|         array|
+|imag_sample_in_ce0        |  out|    1|   ap_memory|   imag_sample_in|         array|
+|imag_sample_in_d0         |  out|   32|   ap_memory|   imag_sample_in|         array|
+|imag_sample_in_q0         |   in|   32|   ap_memory|   imag_sample_in|         array|
+|imag_sample_in_we0        |  out|    1|   ap_memory|   imag_sample_in|         array|
+|imag_sample_in_address1   |  out|    8|   ap_memory|   imag_sample_in|         array|
+|imag_sample_in_ce1        |  out|    1|   ap_memory|   imag_sample_in|         array|
+|imag_sample_in_d1         |  out|   32|   ap_memory|   imag_sample_in|         array|
+|imag_sample_in_q1         |   in|   32|   ap_memory|   imag_sample_in|         array|
+|imag_sample_in_we1        |  out|    1|   ap_memory|   imag_sample_in|         array|
+|real_sample_out_address0  |  out|    8|   ap_memory|  real_sample_out|         array|
+|real_sample_out_ce0       |  out|    1|   ap_memory|  real_sample_out|         array|
+|real_sample_out_d0        |  out|   32|   ap_memory|  real_sample_out|         array|
+|real_sample_out_q0        |   in|   32|   ap_memory|  real_sample_out|         array|
+|real_sample_out_we0       |  out|    1|   ap_memory|  real_sample_out|         array|
+|real_sample_out_address1  |  out|    8|   ap_memory|  real_sample_out|         array|
+|real_sample_out_ce1       |  out|    1|   ap_memory|  real_sample_out|         array|
+|real_sample_out_d1        |  out|   32|   ap_memory|  real_sample_out|         array|
+|real_sample_out_q1        |   in|   32|   ap_memory|  real_sample_out|         array|
+|real_sample_out_we1       |  out|    1|   ap_memory|  real_sample_out|         array|
+|imag_sample_out_address0  |  out|    8|   ap_memory|  imag_sample_out|         array|
+|imag_sample_out_ce0       |  out|    1|   ap_memory|  imag_sample_out|         array|
+|imag_sample_out_d0        |  out|   32|   ap_memory|  imag_sample_out|         array|
+|imag_sample_out_q0        |   in|   32|   ap_memory|  imag_sample_out|         array|
+|imag_sample_out_we0       |  out|    1|   ap_memory|  imag_sample_out|         array|
+|imag_sample_out_address1  |  out|    8|   ap_memory|  imag_sample_out|         array|
+|imag_sample_out_ce1       |  out|    1|   ap_memory|  imag_sample_out|         array|
+|imag_sample_out_d1        |  out|   32|   ap_memory|  imag_sample_out|         array|
+|imag_sample_out_q1        |   in|   32|   ap_memory|  imag_sample_out|         array|
+|imag_sample_out_we1       |  out|    1|   ap_memory|  imag_sample_out|         array|
++--------------------------+-----+-----+------------+-----------------+--------------+
+
