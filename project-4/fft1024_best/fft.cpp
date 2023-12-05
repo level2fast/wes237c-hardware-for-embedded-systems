@@ -42,13 +42,13 @@ void fft(DTYPE IN_R[SIZE], DTYPE IN_I[SIZE], DTYPE OUT_R[SIZE], DTYPE OUT_I[SIZE
 #pragma HLS INTERFACE s_axilite port=return
 #pragma HLS dataflow
 	DTYPE X_R[SIZE], X_I[SIZE];
-	DTYPE X_R_TEMP_OUT[SIZE],  X_I_TEMP_OUT[SIZE];
-	DTYPE IN_R_TEMP_OUT[SIZE], IN_I_TEMP_OUT[SIZE];
+	DTYPE OUT_R_TEMP[SIZE],  OUT_I_TEMP[SIZE];
+	DTYPE IN_R_TEMP[SIZE], IN_I_TEMP[SIZE];
 
-	memcpy(IN_R_TEMP_OUT,(const DTYPE*)IN_R,SIZE*sizeof(DTYPE));
-	memcpy(IN_I_TEMP_OUT,(const DTYPE*)IN_I,SIZE*sizeof(DTYPE));
+	memcpy(IN_R_TEMP,(const DTYPE*)IN_R,SIZE*sizeof(DTYPE));
+	memcpy(IN_I_TEMP,(const DTYPE*)IN_I,SIZE*sizeof(DTYPE));
 
-	bit_reverse(IN_R_TEMP_OUT,IN_I_TEMP_OUT,X_R, X_I);
+	bit_reverse(IN_R_TEMP,IN_I_TEMP,X_R, X_I);
 
 	//Call fft
 	DTYPE Stage1_R[SIZE], Stage1_I[SIZE];
@@ -61,7 +61,7 @@ void fft(DTYPE IN_R[SIZE], DTYPE IN_I[SIZE], DTYPE OUT_R[SIZE], DTYPE OUT_I[SIZE
 	DTYPE Stage8_R[SIZE], Stage8_I[SIZE];
 	DTYPE Stage9_R[SIZE], Stage9_I[SIZE];
 
-	fft_stage_first(X_R, X_I, Stage1_R, Stage1_I);
+	fft_stages(X_R, X_I,      1, Stage1_R, Stage1_I);
 	fft_stages(Stage1_R, Stage1_I, 2, Stage2_R, Stage2_I);
 	fft_stages(Stage2_R, Stage2_I, 3, Stage3_R, Stage3_I);
 	fft_stages(Stage3_R, Stage3_I, 4, Stage4_R, Stage4_I);
@@ -70,89 +70,34 @@ void fft(DTYPE IN_R[SIZE], DTYPE IN_I[SIZE], DTYPE OUT_R[SIZE], DTYPE OUT_I[SIZE
 	fft_stages(Stage6_R, Stage6_I, 7, Stage7_R, Stage7_I);
 	fft_stages(Stage7_R, Stage7_I, 8, Stage8_R, Stage8_I);
 	fft_stages(Stage8_R, Stage8_I, 9, Stage9_R, Stage9_I);
-	fft_stage_last(Stage9_R, Stage9_I, X_R_TEMP_OUT, X_I_TEMP_OUT);
+	fft_stages(Stage9_R, Stage9_I, 10, OUT_R_TEMP, OUT_I_TEMP);
 
-	memcpy(OUT_R,(const DTYPE*)X_R_TEMP_OUT,SIZE*sizeof(DTYPE));
-	memcpy(OUT_I,(const DTYPE*)X_I_TEMP_OUT,SIZE*sizeof(DTYPE));
+	memcpy(OUT_R,(const DTYPE*)OUT_R_TEMP,SIZE*sizeof(DTYPE));
+	memcpy(OUT_I,(const DTYPE*)OUT_I_TEMP,SIZE*sizeof(DTYPE));
 }
 
 
 void bit_reverse(DTYPE X_R[SIZE], DTYPE X_I[SIZE],DTYPE OUT_R[SIZE], DTYPE OUT_I[SIZE])
 {
-	unsigned int reversed= 0;
 	unsigned int i;
 	DTYPE temp;
 	DTYPE temp_rev_R[SIZE];
 	DTYPE temp_rev_I[SIZE];
-	int temp_rev_idx[SIZE];
+	int temp_rev_idx;
 
 	for (i = 0; i < SIZE; i++)
 	{
 #pragma HLS UNROLL
-		temp_rev_idx[i] = reverse_bits(i); // Find the bit reversed index
+		temp_rev_idx = reverse_bits(i); // Find the bit reversed index
 
 		// Swap the real values
-		OUT_R[i]      = X_R[temp_rev_idx[i]];
-		temp_rev_R[i] = X_R[i];
+		OUT_R[temp_rev_idx] = X_R[i];
 
 		// Swap the imaginary values
-		OUT_I[i] = X_I[temp_rev_idx[i]];
-		temp_rev_I[i] = X_I[i];
-	}
-
-
-	for (i = 0; i < SIZE; i++)
-	{
-#pragma HLS UNROLL
-		// Swap the real values
-		OUT_R[temp_rev_idx[i]] = temp_rev_R[i];
-
-		// Swap the imaginary values
-		OUT_I[temp_rev_idx[i]] = temp_rev_I[i];
+		OUT_I[temp_rev_idx] = X_I[i];
 	}
 }
 /*=======================BEGIN: FFT=========================*/
-//stage 1
-void fft_stage_first(DTYPE X_R[SIZE], DTYPE X_I[SIZE], DTYPE OUT_R[SIZE], DTYPE OUT_I[SIZE]) {
-#pragma HLS array_partition variable=W_real type=complete
-#pragma HLS array_partition variable=W_imag type=complete
-
-	int stage = 1;
-	int DFTpts = 1 << stage; // DFT = 2^stage = points in sub DFT
-	int numBF = DFTpts / 2; // Butterfly WIDTHS in sub-DFT
-	int step = SIZE >> stage;
-	int k = 0;
-	DTYPE e = -6.283185307178 / DFTpts;
-	DTYPE a = 0.0;
-	DTYPE c;
-	DTYPE s;
-	int twiddle_index = 0;
-
-	// Perform butterflies for j-th stage
-	butterfly_loop_first:for (int j = 0; j < numBF; j++)
-	{
-		// Compute butterflies that use same W**k
-		dft_loop_first:for (int i = j; i < SIZE; i += DFTpts) {
-#pragma HLS pipeline
-				twiddle_index = (k*j)%(DFTpts); // determines which twiddle factor is selected
-				c = W_real[twiddle_index]; // twiddle factor
-				s = W_imag[twiddle_index]; // twiddle factor
-
-				int ilower = i + numBF; // index of lower point in butterfly
-
-				DTYPE temp_R = X_R[ilower] * c - X_I[ilower] * s;
-				DTYPE temp_I = X_I[ilower] * c + X_R[ilower] * s;
-
-				OUT_R[ilower] = X_R[i] - temp_R;
-				OUT_I[ilower] = X_I[i] - temp_I;
-
-				OUT_R[i] = X_R[i] + temp_R;
-				OUT_I[i] = X_I[i] + temp_I;
-			}
-		k += step;
-	}
-}
-
 //stages
 void fft_stages(DTYPE X_R[SIZE], DTYPE X_I[SIZE], int stage, DTYPE OUT_R[SIZE], DTYPE OUT_I[SIZE]) {
 #pragma HLS array_partition variable=W_real type=complete
@@ -173,7 +118,8 @@ void fft_stages(DTYPE X_R[SIZE], DTYPE X_I[SIZE], int stage, DTYPE OUT_R[SIZE], 
 		// Compute butterflies that use same W**k
 		dft_loop_stages:for (int i = j; i < SIZE; i += DFTpts) {
 #pragma HLS pipeline
-				twiddle_index = (k*j)%(DFTpts); // determines which twiddle factor is selected
+				const int e = 1024/DFTpts;
+				twiddle_index = e *j;
 				c = W_real[twiddle_index]; // twiddle factor
 				s = W_imag[twiddle_index]; // twiddle factor
 
@@ -185,42 +131,6 @@ void fft_stages(DTYPE X_R[SIZE], DTYPE X_I[SIZE], int stage, DTYPE OUT_R[SIZE], 
 				OUT_R[ilower] = X_R[i] - temp_R;
 				OUT_I[ilower] = X_I[i] - temp_I;
 
-				OUT_R[i] = X_R[i] + temp_R;
-				OUT_I[i] = X_I[i] + temp_I;
-			}
-		k += step;
-	}
-}
-
-
-//last stage
-void fft_stage_last(DTYPE X_R[SIZE], DTYPE X_I[SIZE], DTYPE OUT_R[SIZE], DTYPE OUT_I[SIZE]) {
-#pragma HLS array_partition variable=W_real type=complete
-#pragma HLS array_partition variable=W_imag type=complete
-	int stage = 10;
-	int DFTpts = 1 << stage;  // same as multiplying 1* 2^stage, DFT = 2^stage = points in sub DFT
-	int numBF = DFTpts / 2;   // Butterfly WIDTHS in sub-DFT
-	int step = SIZE >> stage; // same as dividing SIZE/(2^stage)
-	int k = 0;
-	DTYPE e = -6.283185307178 / DFTpts;
-	DTYPE c = 0;
-	DTYPE s = 0;
-	int twiddle_index = 0;
-
-	// Perform butterflies for j-th stage
-	butterfly_loop_last:for (int j = 0; j < numBF; j++)
-	{
-		// Compute butterflies that use same W**k
-		dft_loop_last:for (int i = j; i < SIZE; i += DFTpts) {
-#pragma HLS pipeline
-				twiddle_index = (k*j)%(DFTpts); // determines which twiddle factor is selected
-				c = W_real[twiddle_index]; // twiddle factor
-				s = W_imag[twiddle_index]; // twiddle factor
-				int ilower = i + numBF; // index of lower point in butterfly
-				DTYPE temp_R = X_R[ilower] * c - X_I[ilower] * s;
-				DTYPE temp_I = X_I[ilower] * c + X_R[ilower] * s;
-				OUT_R[ilower] = X_R[i] - temp_R;
-				OUT_I[ilower] = X_I[i] - temp_I;
 				OUT_R[i] = X_R[i] + temp_R;
 				OUT_I[i] = X_I[i] + temp_I;
 			}
