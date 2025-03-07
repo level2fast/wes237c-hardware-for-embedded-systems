@@ -66,12 +66,7 @@ void bnn(DTYPE IN[SIZE], ITYPE OUT[OUT_SIZE])
 		TEMP3[i] = 2*(LAYER3_TEMP[i]) - 64;
 	}
 
-//	for(unsigned int j = 0; j < LAYER3_SIZE; j++)
-//	{
-//		ys[j] = TEMP3[j];
-//	}
 	memcpy(OUT,(DTYPE*)TEMP3,OUT_SIZE*sizeof(DTYPE));
-
 }
 
 /**
